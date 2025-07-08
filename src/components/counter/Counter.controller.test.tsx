@@ -23,5 +23,19 @@ describe('Counter.controller', () => {
     setup();
 
     expect(screen.getByTestId('counter-view')).toBeInTheDocument();
+  });
+
+  it('should pass the correct props to the CounterView', () => {
+    setup();
+
+    expect(CounterView).toHaveBeenCalledTimes(1);
+    expect(CounterView).toHaveBeenCalledWith(
+      expect.objectContaining({
+        count: 0,
+        onIncrement: expect.any(Function),
+        onDecrement: expect.any(Function)
+      })
+      , undefined
+    );
   })
 });
