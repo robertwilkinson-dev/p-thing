@@ -52,7 +52,7 @@ describe('Counter.view', () => {
     })
 
     it('count should reflect the given count', () => {
-        setup({ count: 10 });
+        setup({ ...defaultProps, count: 10 });
 
         expect(screen.getByText('count: 10')).toBeInTheDocument();
     })

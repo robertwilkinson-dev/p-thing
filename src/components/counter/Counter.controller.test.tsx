@@ -1,17 +1,27 @@
 import { screen, render } from '@testing-library/react';
 import { CounterController } from './Counter.controller';
+import { CounterView } from './Counter.view';
 
 jest.mock('./Counter.view', () => ({
-  CounterView: jest.fn(props => <p>counter view</p>)
+  ...jest.requireActual('./Counter.view'),
+  CounterView: jest.fn(),
 }));
 
 const setup = () =>
   render(<CounterController />);
 
 describe('Counter.controller', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+
+    (CounterView as jest.Mock).mockReturnValue(
+      <div data-testid="counter-view">Counter View</div>
+    );
+  });
+
   it('should render the counter view', () => {
     setup();
 
-    expect(screen.getByText('counter view')).toBeInTheDocument();
+    expect(screen.getByTestId('counter-view')).toBeInTheDocument();
   })
 });
